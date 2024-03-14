@@ -1,54 +1,67 @@
-DROP TABLE IF EXISTS customer;
-CREATE TABLE customer (
-    CustomerID INT PRIMARY KEY,
-    CustomerName VARCHAR(50),
-    ContactName VARCHAR(50),
-    Address VARCHAR(50),
-    City VARCHAR(50),
-    PostalCode INT(5),
-    Country VARCHAR(50)
+CREATE TABLE DEPT (
+    DEPTNO INT PRIMARY KEY,
+    DNAME VARCHAR(14),
+    LOC VARCHAR(13)
 );
 
-INSERT INTO customer VALUES (1, 'Alfreds Futterkiste', 'Maria Anders', 'Obere Str. 57','Berlin',12209,'Germany');
-INSERT INTO customer VALUES (2, 'Ana Trujillo Emparedados y helados', 'Ana Trujillo', 'Avda. de la Constitución 2222','México D.F.',5021,'Mexico');
-INSERT INTO customer VALUES (3, 'Antonio Moreno Taquería', 'Antonio Moreno', 'Mataderos 2312','México D.F.',5023,'Mexico');
-INSERT INTO customer VALUES (4, 'Around the Horn', 'Thomas Hardy', '120 Hanover Sq.','London',11234,'UK');
-INSERT INTO customer VALUES (5, 'Berglunds snabbköp', 'Christina Berglund', 'Berguvsvägen 8','Luleå',95822,'Sweden');
+CREATE TABLE EMP (
+    EMPNO INT PRIMARY KEY,
+    ENAME VARCHAR(10),
+    JOB VARCHAR(9),
+    MGR INT,
+    HIREDATE DATE,
+    SAL DEC(7,2),
+    COMM DEC(7,2),
+    DEPTNO INT
+);
 
--- Insertar datos relevantes para consultas anteriores
-INSERT INTO customer (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country)
-VALUES 
-    (30, 'Healthy Habits', 'Jessica Lee', '123 Wellness Street', 'Los Angeles', 90001, 'USA'),
-    (31, 'Fresh Mart', 'David Johnson', '456 Green Avenue', 'Sydney', 2000, 'Australia'),
-    (32, 'Tropical Fruits', 'Ana Silva', '789 Palm Road', 'Rio de Janeiro', 20000, 'Brazil'),
-    (33, 'Café Arabica', 'Mohammed Ali', '10 Coffee Street', 'Cairo', NULL, 'Egypt'),
-    (34, 'Tea House', 'Sakura Tanaka', '2 Tea Lane', 'Tokyo', 1600023, 'Japan'),
-    (35, 'Juice Junction', 'Ravi Patel', '30 Orange Boulevard', 'Mumbai', 400001, 'India'),
-    (36, 'Bakery Delights', 'Elena Rodriguez', '42 Baker Street', 'Madrid', 28001, 'Spain'),
-    (37, 'Pizzeria Napoli', 'Giuseppe Russo', 'Via Napoli 5', 'Naples', 80100, 'Italy'),
-    (38, 'Burger Bistro', 'William Turner', '123 Beef Avenue', 'New York', 10001, 'USA'),
-    (39, 'Tandoori Nights', 'Arun Kumar', '456 Spicy Road', 'Delhi', 110001, 'India'),
-    (40, 'Sushi Palace', 'Yuki Yamamoto', '7 Sushi Street', 'Osaka', 5300011, 'Japan'),
-    (41, 'Thai Spice', 'Sara Nopparat', '123 Thai Avenue', 'Bangkok', 10100, 'Thailand'),
-    (42, 'Mediterranean Grill', 'Dimitris Papadopoulos', '8 Olive Lane', 'Athens', 10563, 'Greece'),
-    (43, 'Veggie Haven', 'Lucas Nguyen', '42 Green Road', 'Hanoi', 100000, 'Vietnam'),
-    (44, 'Gourmet Bakes', 'Sophie Baker', '5 Bakery Street', 'Paris', 75002, 'France'),
-    (45, 'Smoothie Paradise', 'Isabel Lopez', '123 Fruit Road', 'Los Angeles', 90001, 'USA'),
-    (46, 'Steakhouse Deluxe', 'John Smith', '50 Meat Avenue', 'Chicago', 60601, 'USA'),
-    (47, 'Seafood Galore', 'Emma White', '8 Fishermans Way', 'Sydney', 2000, 'Australia'),
-    (48, 'Falafel Express', 'Ali Rahman', '123 Shawarma Street', 'Dubai', NULL, 'UAE'),
-    (49, 'Curry House', 'Rajesh Sharma', '456 Masala Avenue', 'Mumbai', 400001, 'India');
-    
-   
-   select CustomerName, City from customer order by CustomerName, City asc;
-   select distinct Country from customer where CustomerName is not null;
-   select * from customer where Country = "Mexico";
-   select * from customer where Country = "Germany" and City = "Berlin";
-   select * from customer where not Country = "Germany";
-   select * from customer where ContactName like "%Moreno%";
-   select * from customer where PostalCode is null;
-   select * from customer order by City asc;
-   select * from customer order by CustomerName asc limit 3;
-   select count(CustomerID) from customer; /*Count sirve para contar los registros */
-   select count(City) from customer;
-   select count(distinct City) from customer;
+ALTER TABLE EMP ADD CONSTRAINT fk_DEPTNO FOREIGN KEY (DEPTNO) REFERENCES DEPT (DEPTNO);
+
+INSERT INTO DEPT VALUES
+    (10,'ACCOUNTING','NEW YORK'),
+    (20,'RESEARCH','DALLAS'),
+    (30,'SALES','CHICAGO'),
+    (40,'OPERATIONS','BOSTON');
+
+INSERT INTO EMP VALUES
+    (7369,'SMITH','CLERK',7902,'1980-12-17',800,NULL,20),
+    (7499,'ALLEN','SALESMAN',7698,'1981-2-20',1600,300,30),
+    (7521,'WARD','SALESMAN',7698,'1981-2-22',1250,500,30),
+    (7566,'JONES','MANAGER',7839,'1981-4-2',2975,NULL,20),
+    (7654,'MARTIN','SALESMAN',7698,'1981-9-28',1250,1400,30),
+    (7698,'BLAKE','MANAGER',7839,'1981-5-1',2850,NULL,30),
+    (7782,'CLARK','MANAGER',7839,'1981-6-9',2450,NULL,10),
+    (7788,'SCOTT','ANALYST',7566,'1987-7-13',3000,NULL,20),
+    (7839,'KING','PRESIDENT',NULL,'1981-11-17',5000,NULL,10),
+    (7844,'TURNER','SALESMAN',7698,'1981-9-8',1500,0,30),
+    (7876,'ADAMS','CLERK',7788,'1987-7-13',1100,NULL,20),
+    (7900,'JAMES','CLERK',7698,'1981-12-3',950,NULL,30),
+    (7902,'FORD','ANALYST',7566,'1981-12-3',3000,NULL,20),
+    (7934,'MILLER','CLERK',7782,'1982-1-23',1300,NULL,10);
+
+CREATE TABLE BONUS (
+    ENAME VARCHAR(10),
+    JOB VARCHAR(9),
+    SAL DEC(7,2),
+    COMM DEC(7,2)
+);
+
+CREATE TABLE SALGRADE (
+    GRADE INT,
+    LOSAL INT,
+    HISAL INT
+);
+
+INSERT INTO SALGRADE VALUES (1,700,1200),
+    (2,1201,1400),
+    (3,1401,2000),
+    (4,2001,3000),
+    (5,3001,9999);
+
+COMMIT;
+
+select ename, job, sal from emp where deptno = "30" order by job,sal desc; 
+select ename, sal, comm from emp where sal + comm >= 1800;
+select ename, job from emp where deptno = "30" and job != "salesman";
+select ename, job from emp where deptno = "10" and job != "Manager" and job != "President";
+
