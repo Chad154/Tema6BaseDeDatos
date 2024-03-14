@@ -1,5 +1,3 @@
-
-
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer (
     CustomerID INT PRIMARY KEY,
@@ -42,15 +40,15 @@ VALUES
     (49, 'Curry House', 'Rajesh Sharma', '456 Masala Avenue', 'Mumbai', 400001, 'India');
     
    
-   select CustomerName, City from customer order by CustomerName asc;
-   select distinct Country from customer;
-   select CustomerName from customer where Country = "Mexico";
-   select CustomerName, ContactName from customer where Country = "Germany";
-   select CustomerName, ContactName from customer where not Country = "Germany";
-   select CustomerName from customer where ContactName like "%Moreno%";
-   select CustomerName from customer where PostalCode is null 
-   select CustomerName, City from customer order by City asc;
-   select CustomerName from customer order by CustomerName asc limit 3;
-   select * from customer;
-   select City from customer;
-   select distinct City from customer;
+   select CustomerName, City from customer order by CustomerName, City asc;
+   select distinct Country from customer where CustomerName is not null;
+   select * from customer where Country = "Mexico";
+   select * from customer where Country = "Germany" and City = "Berlin";
+   select * from customer where not Country = "Germany";
+   select * from customer where ContactName like "%Moreno%";
+   select * from customer where PostalCode is null;
+   select * from customer order by City asc;
+   select * from customer order by CustomerName asc limit 3;
+   select count(CustomerID) from customer; /*Count sirve para contar los registros */
+   select count(City) from customer;
+   select count(distinct City) from customer;
