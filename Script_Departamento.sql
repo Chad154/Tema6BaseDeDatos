@@ -1,3 +1,4 @@
+
 CREATE TABLE DEPT (
     DEPTNO INT PRIMARY KEY,
     DNAME VARCHAR(14),
@@ -60,8 +61,39 @@ INSERT INTO SALGRADE VALUES (1,700,1200),
 
 COMMIT;
 
-select ename, job, sal from emp where deptno = "30" order by job,sal desc; 
-select ename, sal, comm from emp where sal + comm >= 1800;
+select * from emp where ename < "Martin" order by ename asc;
+
+select ename, job, sal from emp where deptno = "30" order by sal,job desc; 
+
+select ename, sal+coalesce(comm,0)total from emp where sal > 1800;
+
 select ename, job from emp where deptno = "30" and job != "salesman";
+
 select ename, job from emp where deptno = "10" and job != "Manager" and job != "President";
+
+select ename, job from emp where deptno = "30"  and not job = "Salesman";
+
+select ename, hiredate from emp where hiredate like "%1981%";
+
+select ename from emp where ename < "Scott" and ename > "James";
+
+select ename, hiredate from emp where hiredate not like "%1981%" order by hiredate asc;
+
+select ename, job, comm from emp where deptno = "30" and comm is not null and not comm = 0;
+
+select ename, job from emp where ename like "%E%";
+
+select ename from emp where ename like "%AS%";
+
+select ename from emp where ename like "%AS%" or ename like "%SA%"; 
+
+select concat(ename, ' is a ', job) as phrase from emp;
+
+select ename, mgr from emp where mgr != "7782" and mgr != "7839";
+
+
+
+
+
+
 
